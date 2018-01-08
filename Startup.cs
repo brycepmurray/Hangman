@@ -26,8 +26,16 @@ namespace hangman_c
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
-            services.AddTransient<IDbConnection>(x => CreateDBContext());
+            services.AddTransient<IDbConnection>(x => CreateDbContext());
             services.AddTransient<HangmanRepository>();
+            services.AddTransient<UserRepository>();
+        }
+
+        private IDbConnection CreateDbContext()
+        {
+            var connection = new MySqlConnection(_connectionString);
+            connection.Open();
+            return connection;
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

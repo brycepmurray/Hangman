@@ -1,0 +1,3 @@
+c:\source\codeworks\Hangman\obj\Debug\netcoreapp2.0\Hangman.csproj.CoreCompileInputs.cache
+c:\source\codeworks\Hangman\obj\Debug\netcoreapp2.0\Hangman.AssemblyInfoInputs.cache
+c:\source\codeworks\Hangman\obj\Debug\netcoreapp2.0\Hangman.AssemblyInfo.cs
