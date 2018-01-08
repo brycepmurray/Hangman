@@ -11,6 +11,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using MySql.Data.MySqlClient;
+using hangman_c.Repsoitories;
+
 namespace hangman_c
 {
     public class Startup
@@ -36,7 +38,7 @@ namespace hangman_c
             var connection = new MySqlConnection(_connectionString);
             connection.Open();
             return connection;
-        }
+        }k
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
@@ -48,5 +50,5 @@ namespace hangman_c
 
             app.UseMvc();
         }
-    }
+    }k
 }

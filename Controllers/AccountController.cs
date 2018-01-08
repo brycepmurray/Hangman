@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using hangman_c.Models;
 using hangman_c.Repsoitories;
@@ -16,8 +18,23 @@ namespace hangman_c.Controllers
         [HttpPost("register")]
         public async Task<UserReturnModel> Register([FromBody]RegisterUserModel creds)
         {
+            if(ModelState.IsValid)
+            {
+
+            UserReturnModel user = DbContext.Login(creds);
+            if(user !=null)
+            {
+                var claims = new List<Claim>
+                {
+                    new Claim(ClaimTypes.Email, user.Email)
+                };
+                var userIdentity = new ClaimsIdentity(claims, "login);")
+            }
              return _db.Register(creds);
         }
+            }
+            return null;
+    }
         [HttpPost("login")]
     
       public async Task<UserReturnModel> Login([FromBody]LoginUserModel creds)
