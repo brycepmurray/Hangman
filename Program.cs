@@ -21,5 +21,15 @@ namespace hangman_c
             WebHost.CreateDefaultBuilder(args)
                 .UseStartup<Startup>()
                 .Build();
+        public static List<Hangman> Hangman = new List<Hangman>()
+        {
+            new Hangman() {
+                GameId = 1,
+                GuessedLetters = ["a","b"],
+                Guesses = 0,
+                Words = "Paradism",
+            } 
+        }        
     }
+
 }
