@@ -3,6 +3,9 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using hangman_c.Models;
 using hangman_c.Repsoitories;
+using API_Users.Models;
+using API_Users.Repositories;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 
 namespace hangman_c.Controllers
@@ -24,22 +27,36 @@ namespace hangman_c.Controllers
             UserReturnModel user = DbContext.Login(creds);
             if(user !=null)
             {
-                var claims = new List<Claim>
-                {
-                    new Claim(ClaimTypes.Email, user.Email)
-                };
-                var userIdentity = new ClaimsIdentity(claims, "login);")
+                var claims = new List<Claim> { new Claim(ClaimTypes.Email, user.Email) };
+                var userIdentity = new ClaimsIdentity(claims, "login");
+                ClaimsPrincipal principal = new ClaimsPrincipal(userIdentity);
+                await HttpContext.SignInAsync(principal);
+                return user;
+                }
             }
-             return _db.Register(creds);
+          return null;
         }
+        [HttpPost("login")]
+        public async Task<UserReturnModel> Login([FromBody]LoginUserModel creds)
+        {
+            if (ModelState.IsValid)
+            {
+                UserReturnModel user = _db.Login(creds);
+                if (user != null)
+                {
+                    var claims = new List<Claim> { new Claim(ClaimTypes.Email, user.Email) };
+                    var userIdentity = new ClaimsIdentity(claims, "login");
+                    ClaimsPrincipal principal = new ClaimsPrincipal(userIdentity);
+                    await HttpContext.SignInAsync(principal);
+                    return user;
+                }
             }
             return null;
-    }
-        [HttpPost("login")]
-    
-      public async Task<UserReturnModel> Login([FromBody]LoginUserModel creds)
-        {
-            return _db.Login(creds);
         }
+        // [HttpGet("authenticate")]
+        // public async Task<UserReturnModel> Authenticate()
+        // {
+            
+        // }
     }
 }
