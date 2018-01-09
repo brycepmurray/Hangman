@@ -38,7 +38,7 @@ namespace hangman_c
             services.AddMvc();
             services.AddTransient<IDbConnection>(x => CreateDbContext());
             services.AddTransient<UserRepository>();
-            services.AddTransient<HangmanRepository>();
+            services.AddTransient<HangmanRespository>();
         }
 
         private IDbConnection CreateDbContext()
